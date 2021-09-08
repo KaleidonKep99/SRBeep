@@ -142,6 +142,23 @@ void obs_frontend_set_transition_duration(int duration)
 		c->obs_frontend_set_transition_duration(duration);
 }
 
+void obs_frontend_release_tbar(void)
+{
+	if (callbacks_valid())
+		c->obs_frontend_release_tbar();
+}
+
+void obs_frontend_set_tbar_position(int position)
+{
+	if (callbacks_valid())
+		c->obs_frontend_set_tbar_position(position);
+}
+
+int obs_frontend_get_tbar_position(void)
+{
+	return !!callbacks_valid() ? c->obs_frontend_get_tbar_position() : 0;
+}
+
 char **obs_frontend_get_scene_collections(void)
 {
 	if (!callbacks_valid())
@@ -187,10 +204,34 @@ char *obs_frontend_get_current_profile(void)
 				   : nullptr;
 }
 
+char *obs_frontend_get_current_profile_path(void)
+{
+	return !!callbacks_valid() ? c->obs_frontend_get_current_profile_path()
+				   : nullptr;
+}
+
 void obs_frontend_set_current_profile(const char *profile)
 {
 	if (callbacks_valid())
 		c->obs_frontend_set_current_profile(profile);
+}
+
+void obs_frontend_create_profile(const char *name)
+{
+	if (callbacks_valid())
+		c->obs_frontend_create_profile(name);
+}
+
+void obs_frontend_duplicate_profile(const char *name)
+{
+	if (callbacks_valid())
+		c->obs_frontend_duplicate_profile(name);
+}
+
+void obs_frontend_delete_profile(const char *profile)
+{
+	if (callbacks_valid())
+		c->obs_frontend_delete_profile(profile);
 }
 
 void obs_frontend_streaming_start(void)
@@ -450,4 +491,58 @@ void obs_frontend_set_current_preview_scene(obs_source_t *scene)
 {
 	if (callbacks_valid())
 		c->obs_frontend_set_current_preview_scene(scene);
+}
+
+void obs_frontend_take_screenshot(void)
+{
+	if (callbacks_valid())
+		c->obs_frontend_take_screenshot();
+}
+
+void obs_frontend_take_source_screenshot(obs_source_t *source)
+{
+	if (callbacks_valid())
+		c->obs_frontend_take_source_screenshot(source);
+}
+
+obs_output_t *obs_frontend_get_virtualcam_output(void)
+{
+	return !!callbacks_valid() ? c->obs_frontend_get_virtualcam_output()
+				   : nullptr;
+}
+
+void obs_frontend_start_virtualcam(void)
+{
+	if (callbacks_valid())
+		c->obs_frontend_start_virtualcam();
+}
+
+void obs_frontend_stop_virtualcam(void)
+{
+	if (callbacks_valid())
+		c->obs_frontend_stop_virtualcam();
+}
+
+bool obs_frontend_virtualcam_active(void)
+{
+	return !!callbacks_valid() ? c->obs_frontend_virtualcam_active()
+				   : false;
+}
+
+void obs_frontend_reset_video(void)
+{
+	if (callbacks_valid())
+		c->obs_frontend_reset_video();
+}
+
+void obs_frontend_open_source_properties(obs_source_t *source)
+{
+	if (callbacks_valid())
+		c->obs_frontend_open_source_properties(source);
+}
+
+void obs_frontend_open_source_filters(obs_source_t *source)
+{
+	if (callbacks_valid())
+		c->obs_frontend_open_source_filters(source);
 }
